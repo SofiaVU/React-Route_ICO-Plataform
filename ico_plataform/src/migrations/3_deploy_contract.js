@@ -1,7 +1,7 @@
-const  createERC20_v2 = artifacts.require("./createERC20_v2.sol");
+const  createERC20 = artifacts.require("./createERC20.sol");
 
 module.exports = function(deployer) {
-	deployer.deploy( createERC20_v2 );
+	deployer.deploy( createERC20 );
 };
 
 // ERROR: createERC20 contract constructor expected 6 arguments, received 0

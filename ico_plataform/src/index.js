@@ -8,7 +8,7 @@ import {Col} from 'react-bootstrap';
 
 import { default as Web3} from 'web3';
 import contractArtifact from './build/contracts/IcoDDBB.json'
-import contractERC20 from './build/contracts/createERC20_v2.json'
+import contractERC20 from './build/contracts/createERC20.json'
 import { default as contract } from 'truffle-contract'
 
 
@@ -282,7 +282,8 @@ class App extends React.Component {
 
         var instance = theERC20.at(theContract);
         //instance.transfer(account, 100, {from: account, gas:200000});
-        instance.transfer(account, amount, {from: account, gas:200000}); 
+        instance.transfer(account, amount, {from: account, gas:200000, value: web3.toWei(amount, "ether")});
+        //web3.eth.sendTransaction()
     }
 
     /*navControl(updatedState){

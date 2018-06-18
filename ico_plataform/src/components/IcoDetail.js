@@ -5,7 +5,7 @@ import {ListGroupItem, Button, FormGroup, FormControl} from 'react-bootstrap';
 import { default as contract } from 'truffle-contract';
 
 import { default as Web3} from 'web3'
-import contractERC20 from '../build/contracts/createERC20_v2.json'
+import contractERC20 from '../build/contracts/createERC20.json'
 
 import {Link} from 'react-router-dom';
 

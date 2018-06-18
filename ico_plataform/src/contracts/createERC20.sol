@@ -1,6 +1,6 @@
 pragma solidity ^0.4.4;
 
-contract createERC20_v2 {
+contract createERC20 {
     
      // MODIFIER 
      modifier onlyOwner {
@@ -99,7 +99,7 @@ contract createERC20_v2 {
     * @param _to Address of recipient account
     * @param _value Amount of tokens to send    *
     */
-    function transfer( address _to, uint256 _value) public {
+    function transfer( address _to, uint256 _value) payable public {
         _transfer(msg.sender, _to, _value);
     }
     

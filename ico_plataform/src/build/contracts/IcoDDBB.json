@@ -768,7 +768,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 525,
+                        "referencedDeclaration": 468,
                         "src": "862:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -960,7 +960,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 525,
+                            "referencedDeclaration": 468,
                             "src": "1243:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -1178,7 +1178,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 525,
+                          "referencedDeclaration": 468,
                           "src": "1361:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2959,7 +2959,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 525,
+                        "referencedDeclaration": 468,
                         "src": "862:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -3151,7 +3151,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 525,
+                            "referencedDeclaration": 468,
                             "src": "1243:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -3369,7 +3369,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 525,
+                          "referencedDeclaration": 468,
                           "src": "1361:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -4615,37 +4615,13 @@
     "version": "0.4.24+commit.e67f0147.Emscripten.clang"
   },
   "networks": {
-    "1529163133806": {
+    "1529342381074": {
       "events": {},
       "links": {},
-      "address": "0xbb0697ceac5e667b324521fca61a7c41c0dd9477",
-      "transactionHash": "0xa60e5938294ab9e445d740b67ace5bbc71eca1fb4abe8b9e0d7410cd4a362e81"
-    },
-    "1529167398252": {
-      "events": {},
-      "links": {},
-      "address": "0x397e7290893531fe69275448c4d9c72e7f1c74cf",
-      "transactionHash": "0xa60e5938294ab9e445d740b67ace5bbc71eca1fb4abe8b9e0d7410cd4a362e81"
-    },
-    "1529218460551": {
-      "events": {},
-      "links": {},
-      "address": "0x0af8eea35809b6d946d8d52fa08df7bbcc2eb9fd",
-      "transactionHash": "0x6546483300b932432f24f9382a5a23e338b212de24c711bc6d76f6447bcce4d3"
-    },
-    "1529326261419": {
-      "events": {},
-      "links": {},
-      "address": "0x346948e8eae3131099e0adcbeeaebd5b9c5f79fb",
-      "transactionHash": "0x6546483300b932432f24f9382a5a23e338b212de24c711bc6d76f6447bcce4d3"
-    },
-    "1529327132750": {
-      "events": {},
-      "links": {},
-      "address": "0x30c6ce9a01a28c615634af0a5ffa4d88a0472c19",
+      "address": "0x5edcfd8c5a210942ea45d58de4e8594a59b221b2",
       "transactionHash": "0x6546483300b932432f24f9382a5a23e338b212de24c711bc6d76f6447bcce4d3"
     }
   },
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-06-18T13:05:50.005Z"
+  "updatedAt": "2018-06-18T17:20:31.591Z"
 }

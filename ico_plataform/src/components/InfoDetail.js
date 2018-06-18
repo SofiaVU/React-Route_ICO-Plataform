@@ -4,7 +4,7 @@ import { default as contract } from 'truffle-contract';
 import { default as Web3} from 'web3'
 
 import {Row, Col,Button,form, label, FieldGroup,FormGroup,ControlLabel, FormControl} from 'react-bootstrap';
-import contractERC20 from '../build/contracts/createERC20_v2.json'
+import contractERC20 from '../build/contracts/createERC20.json'
 
 import BalancesList from '../components/BalancesList'
 
