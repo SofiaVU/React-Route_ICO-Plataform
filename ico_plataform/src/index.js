@@ -34,17 +34,20 @@ registerServiceWorker();*/
 
 // WEB3 INJECTION 
 // eslint-disable-next-line
-var web3 = web3;
+var web3 = window.web3;
 
 if (typeof web3 !== 'undefined') {
+    console.log("HOLAAAA");
   web3 = new Web3(web3.currentProvider);
 } else {
   //  Especificamos el provider 
   // empleando chrome con MetaMask el provider es injectado automaticamente
-  web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"))
-} 
+  console.log("ADIOSS");
+  web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
+}
 
 var account = web3.eth.accounts[0];
+console.log("AQUI" + account);
 
 // eslint-disable-next-line
 var arrayERC20 = new Array(); // guarda los contratos de los tokens creados
@@ -192,7 +195,7 @@ class App extends React.Component {
         
 
         // CONTRATO 
-        // New instance of the Smart Contract -> NUEW TOKEN
+        // New instance of the Smart Contract -> NEW TOKEN
         var tokenInstance = await theERC20.new({from: account, gas:2000000}).then(function(instanciaERC20){
             // print addr of the new token 
             console.log(">>>>>>>>> NEW TOKEN <<<<<<<<<<<");
