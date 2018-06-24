@@ -75,6 +75,7 @@ class App extends React.Component {
         // CONTRATO     
         var contrato = await theContract.deployed(); // ESTO YA ME GUARDA EL CONTRATO
         //console.log("Contrato =", contrato);
+        console.log(contrato);
 
         // EVENTO 
         var eventReg = contrato.Register();
@@ -149,8 +150,10 @@ class App extends React.Component {
         //console.log(info);
         
         var add = tokenAdd;
+        console.log(info.icoWebsite);
 
-        this.state.contrato.register(info.icoName, add, info.OpeningDate, info.ClossingDate, {from: account, gas:2000000})
+        //this.state.contrato.register(info.icoName, info.icoWebsite, add, info.OpeningDate, info.ClossingDate, {from: account, gas:2000000})
+        this.state.contrato.register(info.icoName, info.icoWebsite, add, info.OpeningDate, info.ClosingDate, {from: account, gas:2000000})
         .then(res => {
             console.log("SUCCES ICO Registered");
         })
@@ -280,46 +283,46 @@ class App extends React.Component {
 
     render() {
         return(
-        	<Router>
-				<div>			
-					<BarraNav />
-					<Switch>
-					<Route exact={true} path="/" render={() => {
-						return(
-							<div>            
-				                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossOrigin="anonymous" />
-				                <Col md={2}></Col>
-				                <Col md={6}>
-				                    <h1>Home Page</h1>
-				                    <IcoList ICOarray={this.state.id_Array}  
-				                        instancia={this.state.contrato} 
-				                        arrayERC20={arrayERC20} 
-				                        getERC20contract={this.executeTransfer}
-				                        clickedICO={this.clickedICO}
-				                    />
-				                </Col>
-				            </div>
-						);						
-					}}/>
+            <Router>
+                <div>           
+                    <BarraNav />
+                    <Switch>
+                    <Route exact={true} path="/" render={() => {
+                        return(
+                            <div>            
+                                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossOrigin="anonymous" />
+                                <Col md={2}></Col>
+                                <Col md={6}>
+                                    <h1>Initial Coin Offerings</h1>
+                                    <IcoList ICOarray={this.state.id_Array}  
+                                        instancia={this.state.contrato} 
+                                        arrayERC20={arrayERC20} 
+                                        getERC20contract={this.executeTransfer}
+                                        clickedICO={this.clickedICO}
+                                    />
+                                </Col>
+                            </div>
+                        );                      
+                    }}/>
 
-					<Route exact={true} path="/formulario" render={() =>{
-						return(
-							<Formu formCliked={this.formCliked} />
-						);						
-					}} />
+                    <Route exact={true} path="/formulario" render={() =>{
+                        return(
+                            <Formu formCliked={this.formCliked} />
+                        );                      
+                    }} />
 
-					<Route exact={true} path="/infoICO" render={() =>{
-						return(
-							<InfoDetail IcoID={this.state.icoClicked}
-								contrato={this.state.contrato}
-								transferMade={this.state.transferMade}
-							/>
-						);						
-					}} />
+                    <Route exact={true} path="/infoICO" render={() =>{
+                        return(
+                            <InfoDetail IcoID={this.state.icoClicked}
+                                contrato={this.state.contrato}
+                                transferMade={this.state.transferMade}
+                            />
+                        );                      
+                    }} />
 
-					</Switch>
-				</div>
-			</Router>
+                    </Switch>
+                </div>
+            </Router>
         );
     }
 }

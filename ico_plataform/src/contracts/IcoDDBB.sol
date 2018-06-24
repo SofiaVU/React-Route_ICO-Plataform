@@ -5,6 +5,7 @@ contract IcoDDBB   {
     struct ICO {
         uint id;
         string name;
+        string website;
         address tokenContract;
         string openingDate;
         string closingDate;
@@ -23,7 +24,7 @@ contract IcoDDBB   {
     address public owner;
     
     // EVENTS
-    event Register(uint id, string name, string oppening, string closing, address icoOwner);
+    event Register(uint id, string name,string website, string oppening, string closing, address icoOwner);
     
     /*
     * Constructor del Smart Contract
@@ -36,13 +37,13 @@ contract IcoDDBB   {
     /*
     * Funcion registart una nueva ICO en la plataforma
     */
-    function register(string name, address token,  string opppening, string clossing) public {
+    function register(string name, string website, address token,  string opppening, string closing) public {
        
-       //icoList[id_counter] = ICO(id_counter, name, token, opppening, clossing, tokenPric, msg.sender);
-       icoList[id_counter] = ICO(id_counter, name, token, opppening, clossing, msg.sender);
+       //icoList[id_counter] = ICO(id_counter, name, token, opppening, closing, tokenPric, msg.sender);
+       icoList[id_counter] = ICO(id_counter, name, website, token, opppening, closing, msg.sender);
        arrayIdICOs.push(id_counter);
        
-       emit Register(id_counter, name, opppening, clossing, msg.sender);// lanzamos evento 
+       emit Register(id_counter, website, name, opppening, closing, msg.sender);// lanzamos evento 
        
        id_counter = id_counter + 1; // actualizamos contador de ICOs
     }
@@ -76,6 +77,13 @@ contract IcoDDBB   {
     }
 
     /*
+    * Devuleve la url del sitio web de la ICO dado su id
+    */
+    function getwebsiteByID(uint id) public constant returns (string) {
+        return icoList[id].website;
+    }
+
+    /*
     * Devuleve el precio del token de la ICO dado su id
     */
     /*function getTokenPriceByID(uint id) public constant returns (uint) {
@@ -92,14 +100,14 @@ contract IcoDDBB   {
     /*
     * Devuleve la fecha de apertura de la ICO dado su id
     */
-    function getOpeningDateNameByID(uint id) public constant returns (string) {
+    function getOpeningDateByID(uint id) public constant returns (string) {
         return icoList[id].openingDate;
     }
     
     /*
     * Devuleve la fecha de apertura de la ICO dado su id
     */
-    function getClosingDateNameByID(uint id) public constant returns (string) {
+    function getClosingDateByID(uint id) public constant returns (string) {
         return icoList[id].closingDate;
     }
     

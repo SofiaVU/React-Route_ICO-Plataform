@@ -23,11 +23,12 @@ var account = web3.eth.accounts[0];
 
 export default class InfoDetail extends React.Component {
 
-	constructor(props){
+    constructor(props){
         super(props);
         this.state =({ 
-        	instance: null, 
+            instance: null, 
             nameICO: null,
+            website: null,
             tokenAddr: null,
             tokenName: null,
             tokenSymbol: null,
@@ -46,7 +47,7 @@ export default class InfoDetail extends React.Component {
     }
 
     async componentWillMount() {
-    	var theERC20 = contract(contractERC20);
+        var theERC20 = contract(contractERC20);
         theERC20.setProvider(web3.currentProvider);
 
         var tokenAdd = await this.props.contrato.getTokenAddressByID.call(this.props.IcoID);
@@ -56,49 +57,51 @@ export default class InfoDetail extends React.Component {
         var miArray = new Array();
 
         this.setState({
-        	instance: instancia,
+            instance: instancia,
         });
 
         var miArray = new Array();
 
         var events = await instancia.allEvents({fromBlock:0, toBlock: "latest"});
-    	events.get((err, logs)=>{    		
-    		for (var i=0; i < logs.length; i++){
-    			
-    			var miEvent = new Object();
-    			miEvent.from = logs[i].args.from;
-    			miEvent.to = logs[i].args.to;
-    			miEvent.value = logs[i].args.value.toNumber();
-    			miEvent.aSupply = logs[i].args.aSupply.toNumber();
+        events.get((err, logs)=>{           
+            for (var i=0; i < logs.length; i++){
+                
+                var miEvent = new Object();
+                miEvent.from = logs[i].args.from;
+                miEvent.to = logs[i].args.to;
+                miEvent.value = logs[i].args.value.toNumber();
+                miEvent.aSupply = logs[i].args.aSupply.toNumber();
 
-    			//console.log(miEvent.from); console.log(miEvent.to); console.log(miEvent.value);
-    			miArray.push(miEvent);
-    		}
-    	});
-    	console.log(miArray);
-    	this.setState({
-    		arrayEvents: miArray,
-    		instance: instancia,
-    	});
+                //console.log(miEvent.from); console.log(miEvent.to); console.log(miEvent.value);
+                miArray.push(miEvent);
+            }
+        });
+        console.log(miArray);
+        this.setState({
+            arrayEvents: miArray,
+            instance: instancia,
+        });
     }
 
     async getInfoFromICOBB() {
-    	var contrato = this.props.contrato;
-    	var icoName =  await contrato.getICOnameByID(this.props.IcoID);
-    	var oDate = await contrato.getOpeningDateNameByID.call(this.props.IcoID);
-    	var cDate = await contrato.getClosingDateNameByID.call(this.props.IcoID);
-    	this.setState({
-    		nameICO: icoName,
-    		openingDate: oDate,
-    		closingDate: cDate,
-    	});
+        var contrato = this.props.contrato;
+        var icoName =  await contrato.getICOnameByID(this.props.IcoID);
+        var oDate = await contrato.getOpeningDateByID.call(this.props.IcoID);
+        var cDate = await contrato.getClosingDateByID.call(this.props.IcoID);
+        var web = await contrato.getwebsiteByID.call(this.props.IcoID);// getICOwebsiteByID
+        this.setState({
+            nameICO: icoName,
+            openingDate: oDate,
+            closingDate: cDate,
+            website: web,
+        });
 
-    	var tokenAdd = await contrato.getTokenAddressByID.call(this.props.IcoID);
-    	this.getInfoFromERC20(tokenAdd);
+        var tokenAdd = await contrato.getTokenAddressByID.call(this.props.IcoID);
+        this.getInfoFromERC20(tokenAdd);
     }
 
     async getInfoFromERC20(addr) {
-    	/*var theERC20 = contract(contractERC20);
+        /*var theERC20 = contract(contractERC20);
         theERC20.setProvider(web3.currentProvider);
 
         var instance = theERC20.at(addr);*/
@@ -113,8 +116,8 @@ export default class InfoDetail extends React.Component {
         var aSupp = await this.state.instance.actualSupply();
         var actSupply = aSupp.toNumber();
 
-    	this.setState({
-    		tokenAddr: addr,
+        this.setState({
+            tokenAddr: addr,
             tokenName: tokName,
             tokenSymbol: symbol,
             price: tprice,
@@ -126,72 +129,73 @@ export default class InfoDetail extends React.Component {
     }
 
     async getAllPastEvents(){
-    	console.log("MIIIERDA");
-    	var miArray = new Array();
-    	var instancia;
+        
+        var miArray = new Array();
+        var instancia;
 
-    	while (this.state.instance == null){}
+        while (this.state.instance == null){}
 
         var events = await this.state.instance.allEvents({fromBlock:0, toBlock: "latest"});
-    	events.get((err, logs)=>{
-    		for (var i=0; i < logs.length; i++){
-    			
-    			var miEvent = new Object();
-    			miEvent.from = logs[i].args.from;
-    			miEvent.to = logs[i].args.to;
-    			miEvent.value = logs[i].args.value.toNumber();
-    			miEvent.aSupply = logs[i].args.aSupply.toNumber();
+        events.get((err, logs)=>{
+            for (var i=0; i < logs.length; i++){
+                
+                var miEvent = new Object();
+                miEvent.from = logs[i].args.from;
+                miEvent.to = logs[i].args.to;
+                miEvent.value = logs[i].args.value.toNumber();
+                miEvent.aSupply = logs[i].args.aSupply.toNumber();
 
-    			//console.log(miEvent.from); console.log(miEvent.to); console.log(miEvent.value);
-    			miArray.push(miEvent);
-    		}
-    	});
-    	console.log(miArray);
-    	this.setState({arrayEvents: miArray});    	
+                //console.log(miEvent.from); console.log(miEvent.to); console.log(miEvent.value);
+                miArray.push(miEvent);
+            }
+        });
+        console.log(miArray);
+        this.setState({arrayEvents: miArray});      
     }
 
-	render(){
-		this.getInfoFromICOBB();
-		//this.getAllPastEvents();
-		return(
-			<div>
+    render(){
+        this.getInfoFromICOBB();
+        //this.getAllPastEvents();
+        return(
+            <div>
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossOrigin="anonymous" />
-				<Col md={2} />
+                <Col md={2} />
                     <Col xs={12} md={8}>
                         <Row className="show-grid">
-        					<Col xs={12} md={6}>
-        						<ul className="list-group">
-        							<li className="list-group-item">
-        								<h1><strong>ICO NAME {this.state.nameICO}</strong></h1>				
-        								<h3><strong>Token name:</strong> {this.state.tokenName} </h3>
-        								<h3><strong>Token symbol:</strong> {this.state.tokenSymbol} </h3>
-        								<h3><strong>ICO Opening Date:</strong> {this.state.openingDate} </h3>
-        								<h3><strong>ICO Closing Date:</strong> {this.state.closingDate} </h3>
-        								<h3><strong>{this.state.tokenName} Price:</strong>  {this.state.price} ether's </h3>
-        								<h3><strong>Total Supply of {this.state.tokenName} in contract:</strong> {this.state.totalSupply}</h3>
-        								<h3><strong>Actual Supply of {this.state.tokenName} in contract:</strong> {this.state.actualSupply}</h3>
-        							</li>
-        						</ul>
-        					</Col>
-        					<Col xs={12} md={6}>
-        						<ul className="list-group">
-        							<li className="list-group-item">
-        								<h1><strong>INFO TO ADD TOKEN TO METAMASK</strong></h1>
-        								<h3><strong>Token Smart Contract Addres:</strong></h3><h4> {this.state.tokenAddr}</h4>
-        								<h3><strong>Token symbol:</strong> {this.state.tokenSymbol}</h3>
-        								<h3><strong>Token Decimals Of precision:</strong> {this.state.tokenDecimals}</h3> 
-        							</li>
-        						</ul>
-        					</Col>
-        				</Row>
-        				<Row>
-        					<h1>TOKEN BALANCES</h1>
-        					<BalancesList arrayEvents={this.state.arrayEvents} />
-         				</Row>
+                            <Col xs={12} md={6}>
+                                <ul className="list-group">
+                                    <li className="list-group-item">
+                                        <h1><strong>ICO NAME: {this.state.nameICO}</strong></h1> 
+                                        <h3><strong>Website:</strong><a href={this.state.website} target="blanck">{this.state.website}</a></h3>            
+                                        <h3><strong>Token name:</strong> {this.state.tokenName} </h3>
+                                        <h3><strong>Token symbol:</strong> {this.state.tokenSymbol} </h3>
+                                        <h3><strong>ICO Opening Date:</strong> {this.state.openingDate} </h3>
+                                        <h3><strong>ICO Closing Date:</strong> {this.state.closingDate} </h3>
+                                        <h3><strong>{this.state.tokenName} Price:</strong>  {this.state.price} ether's </h3>
+                                        <h3><strong>Total Supply of {this.state.tokenName} in contract:</strong> {this.state.totalSupply}</h3>
+                                        <h3><strong>Actual Supply of {this.state.tokenName} in contract:</strong> {this.state.actualSupply}</h3>
+                                    </li>
+                                </ul>
+                            </Col>
+                            <Col xs={12} md={6}>
+                                <ul className="list-group">
+                                    <li className="list-group-item">
+                                        <h1><strong>INFO TO ADD TOKEN TO METAMASK</strong></h1>
+                                        <h3><strong>Token Smart Contract Addres:</strong></h3><h4> {this.state.tokenAddr}</h4>
+                                        <h3><strong>Token symbol:</strong> {this.state.tokenSymbol}</h3>
+                                        <h3><strong>Token Decimals Of precision:</strong> {this.state.tokenDecimals}</h3> 
+                                    </li>
+                                </ul>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <h1>TOKEN BALANCES</h1>
+                            <BalancesList arrayEvents={this.state.arrayEvents} />
+                        </Row>
                     </Col>
-				
-			</div>
-		);
-	}
+                
+            </div>
+        );
+    }
 
 }

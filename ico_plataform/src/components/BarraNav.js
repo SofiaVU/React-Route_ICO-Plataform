@@ -11,7 +11,7 @@ export default class BarraNav extends React.Component {
           <Navbar.Header>
             <Navbar.Brand>
               <ul style={{listStyle: "none"}}>
-                <li><a style={{color: "white", fontSize: "3vh",  marginLeft: "25px"}}>ICO FACTORY</a></li>
+                <li><a style={{color: "white", fontSize: "3vh",  marginLeft: "25px"}}>ICO-Launcher</a></li>
                 <li><a style={{color: "white", fontSize: "1.75vh"}}>Created by SOFÍA VIDAL URRIZA</a></li>
               </ul>
             </Navbar.Brand>                    

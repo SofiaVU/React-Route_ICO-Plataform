@@ -23,10 +23,10 @@ var account = web3.eth.accounts[0];
 
 export default class IcoDetail extends React.Component {
 
-	/*
-	* CONSTRUCTOR
-	*/
-	constructor(props){
+    /*
+    * CONSTRUCTOR
+    */
+    constructor(props){
         super(props);
         this.state =({ 
             name: null,
@@ -45,39 +45,39 @@ export default class IcoDetail extends React.Component {
     }
 
     async getName() {
-    	
-    	var name = await this.props.instancia.getICOnameByID.call(this.props.ico);
-    	this.setState({name: name});
+        
+        var name = await this.props.instancia.getICOnameByID.call(this.props.ico);
+        this.setState({name: name});
 
     }
 
     async getOpeningDate(){
-    	
-    	var date = await this.props.instancia.getOpeningDateNameByID.call(this.props.ico);    	
-    	//console.log(date);
+        
+        var date = await this.props.instancia.getOpeningDateByID.call(this.props.ico);      
+        //console.log(date);
 
-    	this.setState({openingDate: date});
+        this.setState({openingDate: date});
     }
 
     async getClosingDate(){
-    	
-    	var date = await this.props.instancia.getClosingDateNameByID.call(this.props.ico);    	
-    	//console.log(date);
+        
+        var date = await this.props.instancia.getClosingDateByID.call(this.props.ico);      
+        //console.log(date);
 
-    	this.setState({closingDate: date});
+        this.setState({closingDate: date});
     }
 
     /*async getPrice() {
-    	
-    	var tprice = await this.props.instancia.getTokenPriceByID.call(this.props.ico);
-    	tprice = tprice.toNumber();
-    	this.setState({price: tprice});
+        
+        var tprice = await this.props.instancia.getTokenPriceByID.call(this.props.ico);
+        tprice = tprice.toNumber();
+        this.setState({price: tprice});
 
     }*/
 
     async getTokenName() {
-    	
-    	var token = await this.props.instancia.getTokenAddressByID.call(this.props.ico);   
+        
+        var token = await this.props.instancia.getTokenAddressByID.call(this.props.ico);   
 
         var theERC20 = contract(contractERC20);
         theERC20.setProvider(web3.currentProvider);
@@ -86,7 +86,7 @@ export default class IcoDetail extends React.Component {
         var tokName = await instance.tokenName();
         var tokPrice = await instance.buyPrice();
         var tprice = tokPrice.toNumber();
-    	this.setState({
+        this.setState({
             token: tokName,
             price: tprice,
         });
@@ -123,8 +123,8 @@ export default class IcoDetail extends React.Component {
             this.getClosingDate();
             //this.getPrice();
         }
-    	return(
-    		<tr>
+        return(
+            <tr>
                 <td><a onClick={this.showInfo}><Link to={'/infoICO'}>{this.state.name}</Link></a></td>
                 <td>{this.state.openingDate}</td>
                 <td>{this.state.closingDate}</td>
@@ -137,7 +137,7 @@ export default class IcoDetail extends React.Component {
                     <Button onClick={this.transfer}>Buy tokens</Button>
                 </td>
             </tr>
-    	);
-	}
+        );
+    }
 
 }
