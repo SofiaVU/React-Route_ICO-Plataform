@@ -18,7 +18,7 @@ export default class IcoList extends React.Component {
     /*
     *
     */
-    getIDfromDetail(id, amount){
+    getIDfromDetail(id, finalAmount, amount){
 
         // Recibe de IcoDetail el id de la ICO sobre la que se ha pulsado
         // y la cantidad de tokens a comprar introducida 
@@ -28,7 +28,7 @@ export default class IcoList extends React.Component {
         //console.log(id);
 
         //this.props.getERC20contract(this.props.arrayERC20[id]);
-        this.props.getERC20contract(id, amount);
+        this.props.getERC20contract(id, finalAmount, amount);
         //console.log("TRAZA 3");
         //console.log(this.props.arrayERC20[id]);
         //console.log(this.props.arrayERC20);
@@ -62,7 +62,6 @@ export default class IcoList extends React.Component {
                 navControl={this.navControlList} 
                 clickedICO={this.clickedICO}
             />);
-            //return(<IcoDetail key={index} ico={icoAddr} instancia={this.props.instancia} />);
 
     	});
 

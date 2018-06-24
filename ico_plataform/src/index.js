@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-//import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 import {Col} from 'react-bootstrap';
@@ -20,34 +19,20 @@ import InfoDetail from './components/InfoDetail'
 //import About from './components/About'
 
 
-/*ReactDOM.render((
-
-	<Router>
-		<div>			
-			<BarraNav />
-			<Route exact={true}  path="/" component={App} />
-			<Route path="/formu" component={Formu} />
-		</div>
-	</Router>
-), document.getElementById('root'));
-registerServiceWorker();*/
-
 // WEB3 INJECTION 
 // eslint-disable-next-line
 var web3 = window.web3;
 
 if (typeof web3 !== 'undefined') {
-    console.log("HOLAAAA");
-  web3 = new Web3(web3.currentProvider);
+    web3 = new Web3(web3.currentProvider);
 } else {
-  //  Especificamos el provider 
-  // empleando chrome con MetaMask el provider es injectado automaticamente
-  console.log("ADIOSS");
-  web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
+    //  Especificamos el provider 
+    // empleando chrome con MetaMask el provider es injectado automaticamente
+    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
 }
 
 var account = web3.eth.accounts[0];
-console.log("AQUI" + account);
+//console.log(account);
 
 // eslint-disable-next-line
 var arrayERC20 = new Array(); // guarda los contratos de los tokens creados
@@ -67,15 +52,13 @@ class App extends React.Component {
             event_Register: null,
             event_Transfer: null, 
             id_Array: null,
-            /*nav: 0,*/
             icoClicked: null,       
         });
         this.formCliked = this.formCliked.bind(this);
         this.registerNewICO = this.registerNewICO.bind(this);
         this.deployNewERC20 = this.deployNewERC20.bind(this);
         this.updateList = this.updateList.bind(this);
-        this.executeTransfer = this.executeTransfer.bind(this);
-        //this.navControl = this.navControl.bind(this);       
+        this.executeTransfer = this.executeTransfer.bind(this);     
         this.clickedICO = this.clickedICO.bind(this);
     }
 
@@ -95,7 +78,6 @@ class App extends React.Component {
 
         // EVENTO 
         var eventReg = contrato.Register();
-        /* Event Params: Register(uint id, string name, string opppening, string clossing, address icoOwner) */
         //console.log(event);
 
         // LANZAMOS WATCH
@@ -156,7 +138,6 @@ class App extends React.Component {
 
         // Actualizar listado de ICos
         this.updateList();
-        //this.setState({nav: 0});
 
     }
 
@@ -164,16 +145,14 @@ class App extends React.Component {
     * Se conecta con la blockchain para interactuar con el smart contract IcoDDBB.sol
     */
     registerNewICO(info, tokenAdd) {
-        console.log(">>>>REGISTER<<<<<<");
+        //console.log(">>>>REGISTER<<<<<<");
         //console.log(info);
         
         var add = tokenAdd;
-        //console.log("Token address");
-        //console.log(add);
 
         this.state.contrato.register(info.icoName, add, info.OpeningDate, info.ClossingDate, {from: account, gas:2000000})
         .then(res => {
-            console.log(">>>>>>>>>>>> +1 succes");
+            console.log("SUCCES ICO Registered");
         })
         .catch(err => {
             console.log("ERROR", err);
@@ -201,8 +180,7 @@ class App extends React.Component {
             console.log(">>>>>>>>> NEW TOKEN <<<<<<<<<<<");
             console.log(instanciaERC20.address);
             return (instanciaERC20);
-        });
-        //console.log("Contrato: " + tokenInstance);        
+        });       
 
         tokenInstance.setERC2Params(info.tokenName, info.symbol, info.tokenDecimals, info.tokenTotalSupply, info.tokenPrice, account,
             {from: account, gas:200000}).then((res, err) => {
@@ -215,16 +193,10 @@ class App extends React.Component {
 
         // Actualizamos array
         arrayERC20.push(tokenInstance);
-        //console.log("array lenght" + arrayERC20.length);
-
-        
-        //var tok = await tokenInstance.tokenName();
-        //console.log("TOKEN NAME " + await tokenInstance.tokenName());
-        
+        //console.log("array lenght" + arrayERC20.length);        
 
         // EVENTO
-        // event Transfer(address indexed from, address indexed to, uint256 value)
-        var eventTransfer = tokenInstance.Transfer();//contrato.Transfer();
+        var eventTransfer = tokenInstance.Transfer();
         //console.log(eventTransfer);
 
         // LANZAMOS WATCH
@@ -246,7 +218,7 @@ class App extends React.Component {
         });
 
         // RETURN THE ADDRESS OF THE CONTRACT CREATED ABOVE
-        console.log("TRAZA 1: " + tokenInstance.address);
+        //console.log("TRAZA 1: " + tokenInstance.address);
         return tokenInstance.address;
     }
 
@@ -255,11 +227,9 @@ class App extends React.Component {
     * Metodo que pide a la Blockchain el array de id's de las ICOs
     */
     async updateList(){
-        console.log("UPDATE ICO LIST ");
+        //console.log("UPDATE ICO LIST ");
         var idArray = [] 
         idArray = await this.state.contrato.getIdIcos.call();
-        //console.log("ARRAY");
-        //console.log(idArray);
         this.setState({ id_Array: idArray});
     }
 
@@ -267,13 +237,12 @@ class App extends React.Component {
     /*
     * Método que jecuta la tranferencia para la compra de tokens
     */
-    async executeTransfer(contractID, amount){
+    async executeTransfer(contractID, finalAmount, amount){
 
-        console.log("TRAZA 4");
-        console.log(contractID);
+        //console.log("TRAZA 4");
+        //console.log(contractID);
+        console.log("amount " + amount);
 
-        //contract.transfer(account, 100, {from: account, gas:200000});
-        //console.log(this.state.contrato)
         var theContract = await this.state.contrato.getTokenAddressByID.call(contractID);
 
         var theERC20 = contract(contractERC20);
@@ -282,7 +251,7 @@ class App extends React.Component {
 
         var instance = theERC20.at(theContract);
         //instance.transfer(account, 100, {from: account, gas:200000});
-        instance.transfer(account, amount, {from: account, gas:200000, value: web3.toWei(amount, "ether")});
+        instance.transfer(account, amount, {from: account, gas:200000, value: web3.toWei(finalAmount, "ether")});
         //web3.eth.sendTransaction()
     }
 
@@ -310,23 +279,6 @@ class App extends React.Component {
 
 
     render() {
-        /*return (
-            <div>            
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossOrigin="anonymous" />
-                
-                <Col md={2}></Col>
-                <Col md={6}>
-                    <h1>Home Page</h1>
-                    <IcoList ICOarray={this.state.id_Array}  
-                        instancia={this.state.contrato} 
-                        arrayERC20={arrayERC20} 
-                        getERC20contract={this.executeTransfer}
-                        clickedICO={this.clickedICO}
-                    />
-                </Col>
-            </div>
-        );*/
-
         return(
         	<Router>
 				<div>			

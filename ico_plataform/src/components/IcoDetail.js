@@ -101,7 +101,8 @@ export default class IcoDetail extends React.Component {
         //console.log(this.props.ico.toNumber()); 
         var amount= ReactDOM.findDOMNode(this.refs.amount).value;
         console.log(amount);        
-        this.props.getID(this.props.ico.toNumber(), amount);
+        var finalAmount = (amount * this.state.price);
+        this.props.getID(this.props.ico.toNumber(), finalAmount, amount);//amount);
 
     }
 
