@@ -47,6 +47,7 @@ export default class InfoDetail extends React.Component {
     }
 
     async componentWillMount() {
+        console.log("CACA 4");
         var theERC20 = contract(contractERC20);
         theERC20.setProvider(web3.currentProvider);
 
@@ -158,6 +159,7 @@ export default class InfoDetail extends React.Component {
         //this.getAllPastEvents();
         return(
             <div>
+                <br/><br/><br/><br/><br/><br/><br/><br/>
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossOrigin="anonymous" />
                 <Col md={2} />
                     <Col xs={12} md={8}>

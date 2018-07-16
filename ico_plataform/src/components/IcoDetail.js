@@ -108,6 +108,7 @@ export default class IcoDetail extends React.Component {
 
     showInfo(){
         //this.props.navControl(2);
+        console.log("CACA");
         this.props.clickedICO(this.props.ico.toNumber());
     }
    

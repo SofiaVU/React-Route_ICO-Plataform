@@ -38,6 +38,7 @@ export default class IcoList extends React.Component {
         this.props.navControl(view);
     }
     clickedICO(id) {
+        console.log("CACA2");
         this.props.clickedICO(id);
     }
 
